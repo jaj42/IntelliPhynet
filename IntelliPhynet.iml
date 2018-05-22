@@ -21,5 +21,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="org.msgpack:jackson-dataformat-msgpack:0.8.16" level="project" />
+    <orderEntry type="library" name="org.zeromq:jeromq:0.4.3" level="project" />
   </component>
 </module>
