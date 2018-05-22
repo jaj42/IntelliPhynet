@@ -25,6 +25,7 @@ class MsgpackSerializer(flat: Boolean) : Serializer(ByteBuffer::class.java, flat
         }
         return result.toString()
     }
+
     override fun serializeToString(deviceIdentity: DeviceIdentity, data: Data): List<String> {
         val bytevalues = serializeToBytes(deviceIdentity, data)
         val hexstrings = bytevalues.map{bytesToHex(it)}
@@ -32,33 +33,38 @@ class MsgpackSerializer(flat: Boolean) : Serializer(ByteBuffer::class.java, flat
     }
 
     override fun serializeToBytes(deviceIdentity: DeviceIdentity, data: Data): List<ByteArray> =
-            if (this.flat)
-                throw(Exception("Flat not implemented for now in MsgpackSerializer"))
+            if (!this.flat)
+                throw(Exception("Flat is required for MsgpackSerializer"))
             else when (data) {
-                is Numeric -> serializeNumerics(data)
+                is Numeric -> listOf(serializeNumerics(data))
                 is SampleArray -> serializeWaveform(data)
                 else -> emptyList()
             }
 
-    fun serializeNumerics(data: Numeric): List<ByteArray> {
+    fun serializeNumerics(data: Numeric): ByteArray {
         val metric = if (data.rosettaMetric != "") data.rosettaMetric else data.vendorMetric
         val dataMap: HashMap<String, Float> = HashMap()
 
         dataMap[metric] = data.value
-
-        val bytes = objectMapper.writeValueAsBytes(dataMap)
-        return listOf(bytes)
+        return objectMapper.writeValueAsBytes(dataMap)
     }
 
     fun serializeWaveform(data: SampleArray): List<ByteArray> {
-        //val timestampsNano = data.getTimestampsDeviceTime(false)
-
         val metric = if (data.rosettaMetric != "") data.rosettaMetric else data.vendorMetric
-        val dataMap: HashMap<String, FloatArray> = HashMap()
 
-        dataMap[metric] = data.getValues()
+        val timestampsNano = data.getTimestampsDeviceTime(true)
+        val values = data.getValues()
 
-        val bytes = objectMapper.writeValueAsBytes(dataMap)
-        return listOf(bytes)
+        // Combine time and data axis
+        val zipped = timestampsNano.zip(values.toTypedArray())
+
+        // Remove trailing zeros
+        val withoutZeros = zipped.dropLastWhile { (_, value) -> value != 0f }
+
+        // Convert to HashMap
+        val mapList = withoutZeros.map{ (time, value) -> hashMapOf("dt" to time, metric to value) }
+
+        // Serialize to MsgPack
+        return mapList.map(objectMapper::writeValueAsBytes)
     }
 }
