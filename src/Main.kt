@@ -1,5 +1,3 @@
-// LightICE imports
-import export.writers.StdoutWriter
 import utils.Conf.parseConfig
 
 fun main(args : Array<String>) {
@@ -9,8 +7,8 @@ fun main(args : Array<String>) {
     println("Connecting to " + device.deviceIdentity.alias + "...")
     device.run()
 
-    val serializer = MsgpackSerializer(false)
-    val writer = StdoutWriter(serializer)
+    val serializer = MsgpackSerializer(true)
+    val writer = ZeromqWriter(serializer)
     device.addListener(writer)
 
     while (true) {
