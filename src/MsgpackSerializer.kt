@@ -9,14 +9,26 @@ import datatypes.Numeric
 import datatypes.SampleArray
 import export.serializers.Serializer
 
-class MsgpackSerializer : Serializer {
-    var objectMapper = ObjectMapper(MessagePackFactory())
+class MsgpackSerializer(flat: Boolean) : Serializer(ByteBuffer::class.java, flat) {
+    val objectMapper = ObjectMapper(MessagePackFactory())
 
-    constructor(flat: Boolean) : super(ByteBuffer::class.java, flat)
-
+    private val HEX_CHARS = "0123456789ABCDEF".toCharArray()
+    private fun bytesToHex(inbytes: ByteArray): String {
+        // From https://gist.github.com/fabiomsr/845664a9c7e92bafb6fb0ca70d4e44fd
+        val result = StringBuffer()
+        inbytes.forEach {
+            val octet = it.toInt()
+            val firstIndex = (octet and 0xF0).ushr(4)
+            val secondIndex = octet and 0x0F
+            result.append(HEX_CHARS[firstIndex])
+            result.append(HEX_CHARS[secondIndex])
+        }
+        return result.toString()
+    }
     override fun serializeToString(deviceIdentity: DeviceIdentity, data: Data): List<String> {
-        val values = serializeToBytes(deviceIdentity, data)
-        return values.map{it.toString()}
+        val bytevalues = serializeToBytes(deviceIdentity, data)
+        val hexstrings = bytevalues.map{bytesToHex(it)}
+        return hexstrings
     }
 
     override fun serializeToBytes(deviceIdentity: DeviceIdentity, data: Data): List<ByteArray> =
