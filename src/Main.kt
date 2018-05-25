@@ -7,7 +7,7 @@ fun main(args : Array<String>) {
     println("Connecting to " + device.deviceIdentity.alias + "...")
     device.run()
 
-    val serializer = MsgpackSerializer(true)
+    val serializer = MsgpackSerializer()
     val writer = ZeromqWriter(serializer)
     device.addListener(writer)
 

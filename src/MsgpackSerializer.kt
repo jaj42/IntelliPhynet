@@ -9,7 +9,7 @@ import datatypes.Numeric
 import datatypes.SampleArray
 import export.serializers.Serializer
 
-class MsgpackSerializer(flat: Boolean) : Serializer(ByteBuffer::class.java, flat) {
+class MsgpackSerializer() : Serializer(ByteBuffer::class.java, true) {
     val objectMapper = ObjectMapper(MessagePackFactory())
 
     private val HEX_CHARS = "0123456789ABCDEF".toCharArray()
@@ -27,15 +27,12 @@ class MsgpackSerializer(flat: Boolean) : Serializer(ByteBuffer::class.java, flat
     }
 
     override fun serializeToString(deviceIdentity: DeviceIdentity, data: Data): List<String> {
-        val bytevalues = serializeToBytes(deviceIdentity, data)
-        val hexstrings = bytevalues.map{bytesToHex(it)}
-        return hexstrings
+        val byteValues = serializeToBytes(deviceIdentity, data)
+        return byteValues.map(this::bytesToHex)
     }
 
     override fun serializeToBytes(deviceIdentity: DeviceIdentity, data: Data): List<ByteArray> =
-            if (!this.flat)
-                throw(Exception("Flat is required for MsgpackSerializer"))
-            else when (data) {
+            when (data) {
                 is Numeric -> listOf(serializeNumerics(data))
                 is SampleArray -> serializeWaveform(data)
                 else -> emptyList()
@@ -58,11 +55,8 @@ class MsgpackSerializer(flat: Boolean) : Serializer(ByteBuffer::class.java, flat
         // Combine time and data axis
         val zipped = timestampsNano.zip(values.toTypedArray())
 
-        // Remove trailing zeros
-        val withoutZeros = zipped.dropLastWhile { (_, value) -> value != 0f }
-
         // Convert to HashMap
-        val mapList = withoutZeros.map{ (time, value) -> hashMapOf("dt" to time, metric to value) }
+        val mapList = zipped.map{ (time, value) -> hashMapOf("dt" to time, metric to value) }
 
         // Serialize to MsgPack
         return mapList.map(objectMapper::writeValueAsBytes)

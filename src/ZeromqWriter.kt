@@ -1,11 +1,12 @@
+import org.zeromq.ZContext
+import org.zeromq.ZMQ
+
+// LightICE imports
 import common.DeviceIdentity
 import datatypes.Data
 import datatypes.SampleArray
 import export.serializers.Serializer
 import export.writers.Writer
-
-import org.zeromq.ZContext
-import org.zeromq.ZMQ
 
 class ZeromqWriter(serializer: Serializer, zmqdest: String = "127.0.0.1") : Writer(serializer) {
     val context = ZContext()
