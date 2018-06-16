@@ -34,31 +34,32 @@ class MsgpackSerializer() : Serializer(ByteBuffer::class.java, true) {
     override fun serializeToBytes(deviceIdentity: DeviceIdentity, data: Data): List<ByteArray> =
             when (data) {
                 is Numeric -> listOf(serializeNumerics(data))
-                is SampleArray -> serializeWaveform(data)
+                is SampleArray -> listOf(serializeWaveform(data))
                 else -> emptyList()
             }
 
     fun serializeNumerics(data: Numeric): ByteArray {
         val metric = if (data.rosettaMetric != "") data.rosettaMetric else data.vendorMetric
-        val dataMap: HashMap<String, Float> = HashMap()
 
-        dataMap[metric] = data.value
-        return objectMapper.writeValueAsBytes(dataMap)
+        val devicetime = data.deviceTime.timestampNano()
+        val value =  hashMapOf(metric to data.value)
+        val meta = hashMapOf("type" to "numeric")
+        val aggregated = hashMapOf("basetime" to devicetime, "data" to value, "meta" to meta)
+
+        return objectMapper.writeValueAsBytes(aggregated)
     }
 
-    fun serializeWaveform(data: SampleArray): List<ByteArray> {
+    fun serializeWaveform(data: SampleArray): ByteArray {
         val metric = if (data.rosettaMetric != "") data.rosettaMetric else data.vendorMetric
 
-        val timestampsNano = data.getTimestampsDeviceTime(true)
+        val timestamps = data.getTimestampsDeviceTime(true)
         val values = data.getValues()
 
-        // Combine time and data axis
-        val zipped = timestampsNano.zip(values.toTypedArray())
+        val devicetime = data.deviceTime.timestampNano()
+        val values2d =  hashMapOf("time" to timestamps, metric to values)
+        val meta = hashMapOf("fs" to data.frequency, "type" to "wave")
+        val aggregated = hashMapOf("basetime" to devicetime, "data" to values2d, "meta" to meta)
 
-        // Convert to HashMap
-        val mapList = zipped.map{ (time, value) -> hashMapOf("dt" to time, metric to value) }
-
-        // Serialize to MsgPack
-        return mapList.map(objectMapper::writeValueAsBytes)
+        return objectMapper.writeValueAsBytes(aggregated)
     }
 }

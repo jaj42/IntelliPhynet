@@ -19,9 +19,10 @@ class ZeromqWriter(serializer: Serializer, zmqdest: String = "127.0.0.1") : Writ
     }
 
     private fun prependTopic(bytes: ByteArray) : ByteArray{
-        val topic = "PHI ".toByteArray(ZMQ.CHARSET)
+        val topic = "phi ".toByteArray(ZMQ.CHARSET)
         return topic + bytes
     }
+
     override fun write(deviceIdentity: DeviceIdentity?, data: Data?) {
         if (data == null)
             return
