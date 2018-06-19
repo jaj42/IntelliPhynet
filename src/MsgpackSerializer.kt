@@ -38,18 +38,19 @@ class MsgpackSerializer() : Serializer(ByteBuffer::class.java, true) {
                 else -> emptyList()
             }
 
-    fun serializeNumerics(data: Numeric): ByteArray {
+    private fun serializeNumerics(data: Numeric): ByteArray {
         val metric = if (data.rosettaMetric != "") data.rosettaMetric else data.vendorMetric
 
         val devicetime = data.deviceTime.timestampNano()
         val value =  hashMapOf(metric to data.value)
+        val tags = emptyMap<Nothing, Nothing>()
         val meta = hashMapOf("type" to "numeric")
-        val aggregated = hashMapOf("basetime" to devicetime, "data" to value, "meta" to meta)
+        val aggregated = hashMapOf("basetime" to devicetime, "data" to value, "tags" to tags, "meta" to meta)
 
         return objectMapper.writeValueAsBytes(aggregated)
     }
 
-    fun serializeWaveform(data: SampleArray): ByteArray {
+    private fun serializeWaveform(data: SampleArray): ByteArray {
         val metric = if (data.rosettaMetric != "") data.rosettaMetric else data.vendorMetric
 
         val timestamps = data.getTimestampsDeviceTime(true)
@@ -57,8 +58,9 @@ class MsgpackSerializer() : Serializer(ByteBuffer::class.java, true) {
 
         val devicetime = data.deviceTime.timestampNano()
         val values2d =  hashMapOf("time" to timestamps, metric to values)
+        val tags = emptyMap<Nothing, Nothing>()
         val meta = hashMapOf("fs" to data.frequency, "type" to "wave")
-        val aggregated = hashMapOf("basetime" to devicetime, "data" to values2d, "meta" to meta)
+        val aggregated = hashMapOf("basetime" to devicetime, "data" to values2d, "tags" to tags, "meta" to meta)
 
         return objectMapper.writeValueAsBytes(aggregated)
     }
