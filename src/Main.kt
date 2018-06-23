@@ -1,10 +1,11 @@
-import utils.Conf.parseConfig
+import utils.Device
+import utils.NetworkAddress
 
 fun main(args : Array<String>) {
-    val conf = parseConfig("conf.json")
-    val device = conf.devices.first() ?: throw IllegalArgumentException("No device defined")
+    val addr = NetworkAddress("10.172.104.35", 24105)
+    val device = Device("lrb","dar","temple", "", "", addr, "philips_ethernet")
 
-    println("Connecting to " + device.deviceIdentity.alias + "...")
+    println("Connecting to " + device.deviceIdentity.addrString + "...")
     device.run()
 
     val serializer = MsgpackSerializer()
