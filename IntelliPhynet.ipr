@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactManager">
+    <artifact type="jar" build-on-make="true" name="IntelliPhynet:jar">
+      <output-path>$PROJECT_DIR$/out/artifacts/IntelliPhynet_jar</output-path>
+      <root id="archive" name="IntelliPhynet.jar">
+        <element id="module-output" name="IntelliPhynet" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.zeromq/jeromq/0.4.3/d734adc7e118cd26407e0b8e2c8a4cb15fb23620/jeromq-0.4.3.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.msgpack/msgpack-core/0.8.16/26af8b01c56128ae248413a7b5c94c08df5eddca/msgpack-core-0.8.16.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.8.0/45b426f7796b741035581a176744d91090e2e6fb/jackson-annotations-2.8.0.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.8.10/eb21a035c66ad307e66ec8fce37f5d50fd62d039/jackson-core-2.8.10.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.msgpack/jackson-dataformat-msgpack/0.8.16/e625244f2b5213bcf18cf3666cae11f67417da71/jackson-dataformat-msgpack-0.8.16.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/libs/fr.aphp.eds-all-1.0.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.zeromq/jnacl/0.1.0/781d75fc80cb2ef4e89716f01fed101ca416e166/jnacl-0.1.0.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.8.11.1/341edc63fdd8b44e17b2c36abbc9b451d8fd05a5/jackson-databind-2.8.11.1.jar" path-in-jar="/" />
+      </root>
+    </artifact>
+  </component>
+  <component name="CompilerConfiguration">
+    <resourceExtensions>
+      <entry name=".+\.(properties|xml|html|dtd|tld)" />
+      <entry name=".+\.(gif|png|jpeg|jpg)" />
+    </resourceExtensions>
+    <wildcardResourcePatterns>
+      <entry name="!?*.class" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.java" />
+      <entry name="!?*.groovy" />
+    </wildcardResourcePatterns>
+    <bytecodeTargetLevel target="1.8" />
+  </component>
+  <component name="CopyrightManager" default="" />
+  <component name="DependencyValidationManager">
+    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
+  </component>
+  <component name="GradleUISettings">
+    <setting name="root" />
+  </component>
+  <component name="GradleUISettings2">
+    <setting name="root" />
+  </component>
+  <component name="IdProvider" IDEtalkID="11DA1DB66DD62DDA1ED602B7079FE97C" />
+  <component name="InspectionProjectProfileManager">
+    <profile version="1.0">
+      <option name="myName" value="Project Default" />
+    </profile>
+    <version value="1.0" />
+  </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" />
+    <option name="OPTION_SCOPE" value="protected" />
+    <option name="OPTION_HIERARCHY" value="true" />
+    <option name="OPTION_NAVIGATOR" value="true" />
+    <option name="OPTION_INDEX" value="true" />
+    <option name="OPTION_SEPARATE_INDEX" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_USE" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true" />
+    <option name="OPTION_DEPRECATED_LIST" value="true" />
+    <option name="OTHER_OPTIONS" value="" />
+    <option name="HEAP_SIZE" />
+    <option name="LOCALE" />
+    <option name="OPEN_IN_BROWSER" value="true" />
+  </component>
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/IntelliPhynet.iml" filepath="$PROJECT_DIR$/IntelliPhynet.iml" />
+    </modules>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl />
+          </splitter-proportions>
+          <settings />
+        </UIState>
+      </state>
+      <state key="Copyright.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl />
+          </splitter-proportions>
+        </UIState>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl>
+              <option name="proportions">
+                <list>
+                  <option value="0.2" />
+                </list>
+              </option>
+            </SplitterProportionsDataImpl>
+          </splitter-proportions>
+          <last-edited>1.6</last-edited>
+        </UIState>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl />
+          </splitter-proportions>
+          <settings />
+        </UIState>
+      </state>
+    </states>
+  </component>
+</project>
