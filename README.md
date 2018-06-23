@@ -1,3 +1,4 @@
 # IntelliPhynet
-LightICE extension for messagepack and zeromq
-See [https://github.com/EDS-APHP/LightICE]
+LightICE MessagePack and ZeroMQ extensions for IntelliPhynet.
+
+See [https://github.com/EDS-APHP/LightICE]()
